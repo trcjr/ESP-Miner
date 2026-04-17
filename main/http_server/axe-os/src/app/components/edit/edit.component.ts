@@ -346,4 +346,17 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     return !! Object.entries(this.form.controls)
       .filter(([field, control]) => control.dirty && !this.noRestartFields.includes(field)).length
   }
+
+  resetScoreboard() {
+    this.systemService.resetScoreboard(this.uri)
+      .pipe(this.loadingService.lockUIUntilComplete())
+      .subscribe({
+        next: () => {
+          this.toastr.success('Scoreboard has been cleared.');
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error('Failed to clear scoreboard: ' + err.message);
+        }
+      });
+  }
 }

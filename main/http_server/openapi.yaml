@@ -1011,6 +1011,26 @@ paths:
         '500':
           description: Internal server error
 
+
+  /api/system/resetScoreboard:
+    post:
+      summary: Clear scoreboard
+      description: Clears all entries from the best difficulty share scoreboard
+      operationId: resetScoreboard
+      tags:
+        - system
+      responses:
+        '200':
+          description: Scoreboard cleared
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized - Client not in allowed network range
+        '500':
+          description: Internal server error
+
   /api/system:
     patch:
       summary: Update system settings

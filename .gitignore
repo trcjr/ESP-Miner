@@ -36,3 +36,6 @@ Thumbs.db
 debug.log
 .vscode
 .cache
+
+# Built files
+esp-miner-merged.bin

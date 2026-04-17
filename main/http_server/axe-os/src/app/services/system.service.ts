@@ -29,6 +29,18 @@ export class SystemApiService {
     @Optional() private api: Api
   ) { }
 
+  public resetScoreboard(uri: string = ''): Observable<GenericResponse> {
+    if (environment.production && this.api && !uri) {
+      return from(this.api.invoke(functions.resetScoreboard, {}) as Promise<GenericResponse>);
+    }
+
+    if (environment.production && uri) {
+      return this.httpClient.post<GenericResponse>(`${uri}/api/system/resetScoreboard`, {});
+    }
+
+    return of({ message: 'Scoreboard cleared (mock)' });
+  }
+
   public downloadLogs(uri: string = ''): Observable<Blob> {
     if (environment.production && this.api && !uri) {
       return from(this.api.invoke(functions.downloadSystemLogs, {}) as Promise<Blob>);
